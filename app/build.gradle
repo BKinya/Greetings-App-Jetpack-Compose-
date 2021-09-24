@@ -4,12 +4,11 @@ plugins {
 }
 
 android {
-    compileSdk 30
-
+    compileSdk 31
     defaultConfig {
         applicationId "com.beatrice.greetingsapp"
         minSdk 23
-        targetSdk 30
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
@@ -68,6 +67,10 @@ dependencies {
     implementation "io.insert-koin:koin-android:$koin_version"
     implementation "io.insert-koin:koin-androidx-compose:$koin_version"
 
-    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0-beta01"
+
+    // Navigation
+    implementation("androidx.navigation:navigation-compose:2.4.0-alpha09")
 
 }

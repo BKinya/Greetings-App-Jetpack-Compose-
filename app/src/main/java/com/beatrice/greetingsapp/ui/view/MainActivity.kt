@@ -1,22 +1,19 @@
 package com.beatrice.greetingsapp.ui.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.beatrice.greetingsapp.ui.theme.GreetingsAppTheme
+import com.beatrice.greetingsapp.ui.view.composables.Greeting
+import com.beatrice.greetingsapp.ui.view.composables.Profile
 import org.koin.androidx.compose.getViewModel
 
 class MainActivity : ComponentActivity() {
@@ -26,69 +23,54 @@ class MainActivity : ComponentActivity() {
             val viewModel: MyViewModel = getViewModel()
             val name = viewModel.name.value
             val greetings = viewModel.greetings.value
-            val isVisible = viewModel.isVisible.value
+            // Survives configuration changes using rememberValue()
+            val navController = rememberNavController() // Should this be here 
             GreetingsAppTheme {
-                Surface(color = MaterialTheme.colors.background) {
-                    Greeting(
-                        greetings = greetings, name = name, isVisible = isVisible,
-                        onButtonClicked = viewModel::onButtonClicked,
-                        onTextChanged = viewModel::onTextChanged
-                    )
-                }
+                // or here
+                Scaffold(
+                    topBar = {
+                        TopAppBar(
+                            navigationIcon = {
+                                IconButton(onClick = { }) {
+                                    Icon(
+                                        Icons.Filled.Face,
+                                        contentDescription = ""
+                                    )
+
+                                }
+                            },
+                            title = {
+                                Text(text = "Greetings")
+                            },
+
+                        )
+                    },
+                    content = { innerPadding ->
+                        NavHost(
+                            navController = navController,
+                            startDestination = "greetings",
+                            modifier = Modifier.padding(innerPadding)
+                        ) {
+                            composable("greetings") {
+                                Greeting(
+                                    greetings = greetings,
+                                    name = name,
+                                    onTextChanged = viewModel::onTextChanged,
+                                    onButtonClick = { navController.navigate("profile"){
+                                        popUpTo("greetings") {inclusive = true}
+                                    } }
+                                )
+                            }
+                            composable("profile") {
+                                Profile(name = name)
+                            }
+                        }
+
+                    }
+                )
+
             }
         }
     }
 }
 
-@Composable
-fun Greeting(
-    greetings: String,
-    name: String,
-    isVisible: Boolean,
-    onTextChanged: (String) -> Unit,
-    onButtonClicked: () -> Unit
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-        Text(
-            text = greetings,
-            fontFamily = FontFamily.Monospace,
-            color = Color.DarkGray,
-            fontSize = 22.sp
-        )
-
-        if (isVisible) {
-            TextField(
-                value = name,
-                onValueChange = onTextChanged,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 42.dp),
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color.White,
-                    focusedIndicatorColor = Color.DarkGray,
-                    unfocusedIndicatorColor = Color.DarkGray
-                ),
-            )
-            Button(
-                onClick = onButtonClicked,
-                modifier = Modifier.padding(24.dp)
-            ) {
-                Text(text = "OK")
-            }
-        }
-
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    GreetingsAppTheme {
-    }
-}

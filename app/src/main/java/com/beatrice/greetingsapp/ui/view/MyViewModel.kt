@@ -14,9 +14,4 @@ class MyViewModel : ViewModel() {
         name.value = myName
     }
 
-    fun onButtonClicked(){
-        greetings.value = "Welcome ${name.value}!"
-        isVisible.value = !isVisible.value
-    }
-
 }
