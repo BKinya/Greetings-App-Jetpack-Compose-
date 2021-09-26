@@ -5,9 +5,15 @@ Simple greetings app using jetpack compose: recomposition, state management
 
 #### State and JetPack compose
 
-https://developer.android.com/jetpack/compose/state
+- https://developer.android.com/jetpack/compose/state
 
 #### Navigation
 
-https://developer.android.com/jetpack/compose/navigation#getting-started
-Codelab: https://developer.android.com/codelabs/jetpack-compose-navigation
+- Docs: https://developer.android.com/jetpack/compose/navigation#getting-started
+- Codelab: https://developer.android.com/codelabs/jetpack-compose-navigation
+
+#### Pager Library
+
+- Similar to  ViewPager
+- https://google.github.io/accompanist/pager/
+

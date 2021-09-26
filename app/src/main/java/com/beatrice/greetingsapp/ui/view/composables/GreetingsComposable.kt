@@ -54,7 +54,7 @@ fun Greeting(
             onClick = onButtonClick,
             modifier = Modifier.padding(24.dp)
         ) {
-            Text(text = "OK")
+            Text(text = "Next")
         }
     }
 }
