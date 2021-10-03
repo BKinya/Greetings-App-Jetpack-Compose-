@@ -1,4 +1,4 @@
-package com.beatrice.greetingsapp.ui.theme
+package com.beatrice.greetingsapp.greetingsApp.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

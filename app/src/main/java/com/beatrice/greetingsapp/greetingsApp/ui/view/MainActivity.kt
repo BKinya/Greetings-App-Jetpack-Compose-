@@ -1,4 +1,4 @@
-package com.beatrice.greetingsapp.ui.view
+package com.beatrice.greetingsapp.greetingsApp.ui.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,12 +12,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.beatrice.greetingsapp.ui.theme.GreetingsAppTheme
-import com.beatrice.greetingsapp.ui.view.composables.Greeting
-import com.beatrice.greetingsapp.ui.view.composables.Profile
+import com.beatrice.greetingsapp.greetingsApp.ui.theme.GreetingsAppTheme
+import com.beatrice.greetingsapp.greetingsApp.ui.view.composables.Greeting
+import com.beatrice.greetingsapp.greetingsApp.ui.view.composables.Profile
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
-import com.google.accompanist.pager.rememberPagerState
 import org.koin.androidx.compose.getViewModel
 
 class MainActivity : ComponentActivity() {
@@ -79,10 +78,9 @@ class MainActivity : ComponentActivity() {
                                     name = name,
                                     state = pagerState,
                                     btnText = btnText,
-                                    onButtonClicked = if (isLastQuestion) finish else getNextQuestion,
+                                    onButtonClicked= if (isLastQuestion) finish else getNextQuestion,
                                     question = question,
-                                    onTextChanged = viewModel::getAnswer,
-                                    answer = answer,
+                                    onAnswered ={viewModel::getAnswer} ,
                                     currentIndex = currentIndex
                                 )
                             }

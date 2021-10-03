@@ -1,9 +1,11 @@
-package com.beatrice.greetingsapp.ui.view
+package com.beatrice.greetingsapp.greetingsApp.ui.view
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.beatrice.greetingsapp.greetingsApp.data.Question
+import com.beatrice.greetingsapp.greetingsApp.data.QuestionType
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 import kotlinx.coroutines.launch
@@ -13,15 +15,30 @@ class MyViewModel : ViewModel() {
     val name = mutableStateOf(" ")
     val greetings = mutableStateOf("What's your sweet name?")
 
-    val questions = mutableMapOf(
-        "Did you go to the Movie last night?" to " ",
-        "What are your hobbies?" to " ",
-        "What's you favourite meal?" to " ",
-        "Do you love dogs?" to " ",
-        "What's your favourite destination?" to " "
+    val questions = mutableListOf(
+        Question(
+            questionText = "Did you go to the Movie last night?",
+            type = QuestionType.MULTIPLE_CHOICE
+        ),
+        Question(
+            questionText = "What are your hobbies?",
+            type = QuestionType.OPEN_ENDED
+        ),
+        Question(
+            questionText = "What's you favourite meal?",
+            type = QuestionType.OPEN_ENDED
+        ),
+        Question(
+            questionText = "Do you love dogs?",
+            type = QuestionType.MULTIPLE_CHOICE
+        ),
+        Question(
+            questionText = "What's your favourite destination?",
+            type = QuestionType.OPEN_ENDED
+        )
 
     )
-    val question = mutableStateOf(questions.keys.elementAt(0))
+    val question = mutableStateOf(questions.elementAt(0))
     val currentIndex = mutableStateOf(0)
     val btnText = mutableStateOf("Next")
     val answer = mutableStateOf(" ")
@@ -43,8 +60,8 @@ class MyViewModel : ViewModel() {
                isLastQuestion.value = true
             }
             pager.scrollToPage(nextIndex)
-            question.value = questions.keys.elementAt(nextIndex)
-            answer.value = questions.values.elementAt(nextIndex)
+            question.value = questions.elementAt(nextIndex)
+            answer.value = questions.elementAt(nextIndex).answer!!
         }
     }
 
@@ -53,11 +70,10 @@ class MyViewModel : ViewModel() {
         Log.d("ALLL", "Answers $questions")
     }
 
-    fun getAnswer(newAnswer: String) {
+    fun getAnswer(newAnswer: String, quiz: Question) {
         Log.d("Answer", "is => $newAnswer")
         answer.value = newAnswer
-        val quest = question.value
-        questions[quest] = newAnswer
+        quiz.answer = newAnswer
     }
 
 }

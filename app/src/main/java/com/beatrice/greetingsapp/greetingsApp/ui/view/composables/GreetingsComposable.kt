@@ -1,4 +1,4 @@
-package com.beatrice.greetingsapp.ui.view.composables
+package com.beatrice.greetingsapp.greetingsApp.ui.view.composables
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -13,8 +13,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import com.beatrice.greetingsapp.ui.theme.GreetingsAppTheme
+import com.beatrice.greetingsapp.greetingsApp.ui.theme.GreetingsAppTheme
 
 @Composable
 fun Greeting(

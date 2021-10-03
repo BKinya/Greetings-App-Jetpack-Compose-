@@ -1,7 +1,7 @@
-package com.beatrice.greetingsapp.ui
+package com.beatrice.greetingsapp.greetingsApp
 
 import android.app.Application
-import com.beatrice.greetingsapp.ui.di.appModules
+import com.beatrice.greetingsapp.greetingsApp.ui.di.appModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.logger.AndroidLogger
 import org.koin.core.context.startKoin
