@@ -32,8 +32,8 @@ class MainActivity : ComponentActivity() {
             // TODO: Rename this
             val finish = { viewModel.finish() }
             val question = viewModel.question.value
+            val answer = viewModel.answer
             val btnText = viewModel.btnText.value
-            val answer = viewModel.answer.value
             val currentIndex = viewModel.currentIndex.value
             val isLastQuestion = viewModel.isLastQuestion.value
 
@@ -78,10 +78,12 @@ class MainActivity : ComponentActivity() {
                                     name = name,
                                     state = pagerState,
                                     btnText = btnText,
-                                    onButtonClicked= if (isLastQuestion) finish else getNextQuestion,
+                                    onButtonClicked = if (isLastQuestion) finish else getNextQuestion,
                                     question = question,
-                                    onAnswered ={viewModel::getAnswer} ,
-                                    currentIndex = currentIndex
+                                    onAnswered = {
+                                        viewModel.getAnswer(it, quiz = question)} ,
+                                    currentIndex = currentIndex,
+                                    answer = answer.value
                                 )
                             }
                         }

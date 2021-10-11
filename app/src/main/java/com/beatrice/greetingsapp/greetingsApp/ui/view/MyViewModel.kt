@@ -36,7 +36,6 @@ class MyViewModel : ViewModel() {
             questionText = "What's your favourite destination?",
             type = QuestionType.OPEN_ENDED
         )
-
     )
     val question = mutableStateOf(questions.elementAt(0))
     val currentIndex = mutableStateOf(0)
@@ -53,6 +52,7 @@ class MyViewModel : ViewModel() {
         viewModelScope.launch {
             Log.d("Current", "index => ${currentIndex.value}")
             val nextIndex = currentIndex.value + 1
+            questions[currentIndex.value].answer = answer.value
             currentIndex.value = nextIndex
 
             if (nextIndex+1 == questions.size) {
@@ -61,7 +61,7 @@ class MyViewModel : ViewModel() {
             }
             pager.scrollToPage(nextIndex)
             question.value = questions.elementAt(nextIndex)
-            answer.value = questions.elementAt(nextIndex).answer!!
+            answer.value = questions.elementAt(nextIndex).answer ?: " "
         }
     }
 

@@ -1,5 +1,6 @@
 package com.beatrice.greetingsapp.greetingsApp.ui.view.composables
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
@@ -26,8 +27,10 @@ fun Profile(
     onAnswered: (String) -> Unit,
     question: Question,
     currentIndex: Int,
-    onButtonClicked: () -> Unit
+    onButtonClicked: () -> Unit,
+    answer: String
 ) {
+    Log.d("Answer", "Does it really recreate this")
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -56,7 +59,8 @@ fun Profile(
             btnText = btnText,
             onAnswered = onAnswered,
             question = question,
-            onButtonClicked = onButtonClicked
+            onButtonClicked = onButtonClicked,
+            answer = answer
         )
 
     }
@@ -70,7 +74,8 @@ fun MyPager(
     btnText: String,
     onAnswered: (String) -> Unit,
     onButtonClicked: () -> Unit,
-    question: Question
+    question: Question,
+    answer: String
 ) {
     HorizontalPager(
         state = pagerState,
@@ -90,7 +95,7 @@ fun MyPager(
                 color = Color.DarkGray,
                 fontSize = 20.sp
             )
-            ShowAnswerContainer(question = question, onAnswered = onAnswered)
+            ShowAnswerContainer(question = question, onAnswered = onAnswered, answer = answer)
             Spacer(modifier = Modifier.height(16.dp))
             Button(onClick = onButtonClicked) {
                 Text(text = btnText)
@@ -103,14 +108,15 @@ fun MyPager(
 @Composable
 fun ShowAnswerContainer(
     question: Question,
-    onAnswered: (String) -> Unit
+    onAnswered: (String) -> Unit,
+    answer: String
 ) {
     when (question.type) {
         QuestionType.OPEN_ENDED -> {
-            OpenEndedAnsContainer(answer = question.answer ?: " ", onAnswered = onAnswered)
+            OpenEndedAnsContainer(answer = answer, onAnswered = onAnswered)
         }
         QuestionType.MULTIPLE_CHOICE -> {
-            MultipleChoicesContainer(onOptionSelected = onAnswered)
+            MultipleChoicesContainer(onOptionSelected = onAnswered, answer )
         }
     }
 }
