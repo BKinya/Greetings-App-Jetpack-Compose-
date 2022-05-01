@@ -1,5 +1,5 @@
 # Greetings-App
-Simple greetings app using jetpack compose: recomposition, state management
+Greetings app using jetpack compose: recomposition, state management
 
 ### Resources
 
